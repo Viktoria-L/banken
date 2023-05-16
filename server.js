@@ -69,7 +69,6 @@ app.post("/api/register", async (req, res) => {
     pass: hash,
   });
   res.json({
-    success: true,
     user: req.body.user,
   });
 });
@@ -83,7 +82,7 @@ app.post("/api/login", async (req, res) => {
   if (user && passwordsMatch) {
     req.session.user = user.user;
     res.json({
-      success: true,
+      id: user._id,
       user: user.user,
     });
   } else {
@@ -102,8 +101,12 @@ app.post("/api/logout", (req, res) => {
   });
 });
 
-// ---------- SKAPA KONTO --------- //
-app.get('/aacount/add', async () => {
+// ---------- HÄMTA KONTO --------- //
+app.get('/api/users/:id', async (req, res) => {
+    const user = await usersCollection.findOne({
+        _id: new ObjectId(req.params.id),
+      });
+      res.send(user);
 
 })
 

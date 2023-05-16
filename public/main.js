@@ -9,6 +9,8 @@ const welcomeText = document.querySelector("#welcome");
 const loginSection = document.querySelector(".loginSection");
 const changeBtn = document.querySelector(".changeBtn");
 const userSection = document.querySelector(".userSection");
+const accountDiv = document.querySelector(".accounts");
+
 let state = "";
 
 let onPageLoad = async () => {
@@ -68,6 +70,9 @@ loginForm.addEventListener("submit", async (e) => {
         loginSection.classList.add("hidden");
         userSection.classList.remove("hidden");
         welcomeText.innerText = "Välkommen, du är inloggad";
+        //Ska det verkligen skickas vidare till en enskild users sida?
+        //window.location.href = `api/users/${data.id}`;
+        getUserAccounts(data.id)
         } else {
             welcomeText.innerText = data.error;
         }
@@ -115,6 +120,12 @@ logoutForm.addEventListener("submit", async (e) => {
     location.reload();
 })
 
+//Hämta användares konton
+let getUserAccounts = async (id) => {
+    let res = await fetch(`/api/user/${id}`);
+    let data = await res.json();
+    console.log(data)
 
+}
 
 
