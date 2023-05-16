@@ -1,0 +1,129 @@
+body {
+    background-color: antiquewhite;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    height: 100%;
+    width: 100%;
+}
+a{
+    text-decoration: none;
+    color: rgb(28, 28, 28);
+    
+    font-weight: 600;
+}
+.dropdown-menu a:hover {
+    color: rgb(28, 28, 28);
+    border-bottom: 2px solid rgb(28, 28, 28);;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+ul {
+    display: flex;
+}
+li {
+    list-style: none;
+    margin: 10px;
+    font-family: 'Gotu', sans-serif;
+    color: rgb(28, 28, 28);
+    font-size: 14px;
+}
+
+.hamburger {
+    background-color: transparent;
+    border:none;
+}
+.change {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* FORMULÄR */
+.loginSection {
+    max-width: 250px;    
+}
+
+.loginSection form {
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+#loginOrReg-form input {
+    margin-bottom: 5px;
+}
+
+.changeBtn {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+
+footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+     margin-top: auto;
+    width: 100%;
+    font-size: 14px;
+}
+.hidden {
+    display: none;
+}
+
+
+/* ----------- MEDIA QUERIES ---------- */
+
+
+@media (max-width: 635px) {
+    .dropdown-menu {
+      position: absolute;
+      top: 24px;
+      right: 0;
+      z-index: 1;
+      background-color: #eb7c3b8c;
+      display: none;
+    }
+    .dropdown-menu ul {
+        display: flex;
+        flex-direction: column;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .dropdown-menu li {
+      border-bottom: 1px solid rgb(28, 28, 28);;
+    }
+    .dropdown-menu li:last-child {
+      border-bottom: none;
+    }
+    .dropdown-menu a {
+      display: block;
+      padding: 10px;
+      color: rgb(28, 28, 28);;
+    }
+    .show {
+      display: block !important;
+    }
+    nav {
+        margin-top: 5px;
+    }
+  }
+
+  @media (min-width: 636px) {
+    .hamburger {
+      display: none;
+    }
+ 
+  
+  }

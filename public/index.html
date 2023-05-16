@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank of Viktoria</title>
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://kit.fontawesome.com/f43b64805c.js" crossorigin="anonymous"></script>
+    <script src="/main.js" defer></script>
+</head>
+<body>
+<div class="content">
+    <header>
+        <nav>
+            <a href="/">
+              <h1><i class="fa-solid fa-piggy-bank"></i>Bank of Viktoria</h1>
+            </a>
+    
+          <div class="dropdown-menu">
+            <ul>
+              <li><a href="/">Hem</a></li>
+              <li><a href="/accounts">Kontolista</a></li>
+              <li><a href="/users/add">Starta konto</a></li>
+            </ul>
+          </div>
+          <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
+        </nav>
+    </header>
+<main>
+<h2>Welcome to min bank!</h2>
+<p id="welcome">Logga in eller registrera dig som användare i formuläret nedan.</p>
+
+<section class="loginSection">
+    <form id="loginOrReg-form">
+        <input type="text" name="firstname" id="firstname" placeholder="Förnamn" class="hidden">    
+        <input type="text" name="lastname" id="lastname"placeholder="Efternamn" class="hidden">
+        <input type="text" id="user" name="user" placeholder="Användarnamn">
+        <input type="password" id="pass" name="pass" placeholder="Lösenord">
+        <button type="submit" class="submitBtn">Logga in</button>
+    </form>
+    <button class="changeBtn">Är du inte medlem än? Klicka här för att registrera dig!</button>
+</section>
+
+    <form id="logout" class="hidden">
+        <button type="submit" class="logoutBtn">Logout</button>
+    </form>
+
+<section class="userSection hidden">
+    <button class="creatAccount"></button>
+    <h3>Här är en lista på dina bankkonton:</h3>
+</section>
+
+</main>
+
+<footer>
+    <p>Copyright &copy; 2023 Bank of Viktoria</p>
+</footer>
+</div>
+</body>
+</html>
