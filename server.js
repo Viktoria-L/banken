@@ -35,7 +35,7 @@ const restrict = (req, res, next) => {
   if (req.session.user) {
     next();
   } else {
-    res.status(401).send({ error: "Ej behörig" });
+    res.status(401).send({ error: "Du behöver vara inloggad för att se detta" });
   }
 };
 
@@ -53,10 +53,17 @@ app.get("/api/loggedin", async (req, res) => {
 });
 
 // --------------- HÄMTA ALLA ANVÄNDARE --------------- //
-app.get("/api/users", async (req, res) => {
+app.get("/api/users", restrict, async (req, res) => {
   const users = await usersCollection.find().toArray();
   res.json(users);
 });
+
+// --------------- HÄMTA KONTOLISTA --------------- //
+app.get('/accounts', restrict, async (req, res) => {
+  const accounts = await accountCollection.find().toArray();
+  res.send(accounts);
+
+})
 
 //--------- REGISTRERA ANVÄNDARE ------------- //
 app.post("/api/register", async (req, res) => {
@@ -101,15 +108,56 @@ app.post("/api/logout", (req, res) => {
   });
 });
 
-// ---------- HÄMTA KONTO --------- //
-app.get('/api/users/:id', async (req, res) => {
-    const user = await usersCollection.findOne({
-        _id: new ObjectId(req.params.id),
-      });
-      res.send(user);
+// ---------- HÄMTA BANKKONTON --------- //
+app.get('/api/accounts', restrict, async (req, res) => {
+    const allAccounts = await accountCollection.find({}).toArray();
+      res.send(allAccounts);
 
 })
 
+// ---------- SKAPA BANKKONTO --------- //
+app.post('/api/accounts', async (req, res) => {
+  const newAccount = await accountCollection.insertOne({
+    name: req.body.name,
+    balance: Number(req.body.balance)
+  });
+  res.json(newAccount);
+})
+
+// ---------- SÄTTA IN ELLER TA UT PENGAR --------- //
+app.put('/api/accounts/:id', restrict, async (req, res) => {
+  try {
+  const accountId = new ObjectId(req.params.id);
+  let update;
+  if(req.body.type === 'deposit'){
+    update = {
+        $inc: {
+        balance: Number(req.body.balance), 
+      }}
+  } else {
+    update = {
+           $inc: {
+             balance: -Number(req.body.balance), 
+         }}
+  }
+  const result = await accountCollection.findOneAndUpdate({_id: accountId}, update);
+  res.json(result);
+  } catch (error){
+    res.status(500).json({error: error.message})
+  }
+})
+
+// ---------- TA BORT BANKKONTO --------- //
+app.delete("/api/accounts/:id", async (req, res) => {
+  try {
+  const response = await accountCollection.deleteOne({
+    _id: new ObjectId(req.params.id),
+  });
+  res.json(response);
+} catch (error) {
+  res.status(500).json({error: error.message})
+}
+});
 
 //TA BORT DENNA SEN?
 app.get("/api/cookie", (req, res) => {

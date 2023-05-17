@@ -18,10 +18,10 @@
             </a>
     
           <div class="dropdown-menu">
-            <ul>
+            <ul class="nav-ul">
               <li><a href="/">Hem</a></li>
-              <li><a href="/accounts">Kontolista</a></li>
-              <li><a href="/users/add">Skapa konto</a></li>
+              <li><a href="/">Om oss</a></li>
+              <li><a href="/">Kontakt</a></li>
             </ul>
           </div>
           <button class="hamburger"><i class="fa-solid fa-bars"></i></button>
@@ -49,13 +49,15 @@
 <section class="userSection hidden">
     <h3>Här är en lista på alla bankkonton:</h3>
     <div class="accounts">
+        <ul class="accountList"></ul>
         
     </div>
     <h3>Skapa nytt konto</h3>
     <form id="createAccount-form">
         <label for="accountName">Kontonamn</label>
         <input type="text" name="accountName" id="accountName">
-        <label for="balance">Insättning i SEK</label><input type="number" name="balance" id="balance" placeholder="1000" min="1">
+        <label for="balance">Insättning i SEK</label>
+        <input type="number" name="balance" id="balance" placeholder="1000" min="1">
         <button type="submit" class="createAccount">Skapa konto</button>
     </form>
     
