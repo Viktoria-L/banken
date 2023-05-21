@@ -1,12 +1,37 @@
 body {
-    background-color: antiquewhite;
+    background-color: white;
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
 }
+
 .content {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     height: 100%;
     width: 100%;
+}
+
+h1{
+  font-family: 'Arvo', serif;
+  letter-spacing: 2px;
+  font-size: 30px;
+  color: #2C3333;
+}
+
+h3 {
+  text-align: center;
+}
+i {
+  margin: 0 5px;
+  color: #0E8388;
+}
+body > div > header > nav > a > h1 > i {
+  margin-right: 10px;
+}
+.fa-solid.fa-bars {
+  font-size: 20px;
 }
 a{
     text-decoration: none;
@@ -31,7 +56,7 @@ nav {
 li {
     list-style: none;
     margin: 10px;
-    font-family: 'Gotu', sans-serif;
+    font-family: 'Lato', sans-serif;
     color: rgb(28, 28, 28);
     font-size: 14px;
 }
@@ -40,24 +65,66 @@ li {
     background-color: transparent;
     border:none;
 }
+
 .change {
     font-weight: bold;
     cursor: pointer;
 }
+header {
+margin-bottom: 20px;
+  box-shadow: rgba(33, 35, 38, 0.1) 0px 10px 10px -10px;
+}
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+button {
+  
+  font-family: 'Lato', sans-serif;
+  background-color: #0E8388;
+  color: white;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid #2E4F4F;
+  border-radius: 4px;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.04) 0px 3px 5px;
+}
+button:hover:not(.changeBtn, .hamburger) {
+  background-color: #2E4F4F;
+}
+
+#welcome {
+  font-style: italic;
+  width: 50%;
+  text-align: center;
+}
 
 /* FORMULÄR */
 .loginSection {
-    max-width: 250px;    
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;    
 }
 
 .loginSection form {
     width: 180px;
     display: flex;
     flex-direction: column;
-    margin: 10px 0;
+    align-items: center;
+    margin: 30px 0;
 }
 #loginOrReg-form input {
-    margin-bottom: 5px;
+    margin-bottom: 10px;
+  font-family: 'Lato', sans-serif;
+
+}
+.userSection {
+  display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .changeBtn {
@@ -65,8 +132,48 @@ li {
     background-color: transparent;
     cursor: pointer;
     margin-bottom: 5px;
+    font-weight: bold;
+    color: black;
+    box-shadow: none;
 }
-
+.accountList {
+  display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding:0;
+}
+.account-div {
+  width: 350px;
+  background: #CBE4DE;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+}
+li a {
+  font-size: 18px;
+}
+button[id*="delete"] {
+  background-color: #2C3333;
+  width: 125px;
+}
+button[id*="delete"]:hover {
+  background-color: rgb(209, 80, 80);
+}
+#createAccount-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 2px solid #0E8388;
+  padding: 20px;
+border-radius: 10px;
+}
+#logout {
+  margin-top: 30px;
+}
 
 footer {
     display: flex;
@@ -88,11 +195,12 @@ footer {
 @media (max-width: 635px) {
     .dropdown-menu {
       position: absolute;
-      top: 24px;
+      top: 87px;
       right: 0;
       z-index: 1;
-      background-color: #eb7c3b8c;
+      background-color: #cbe4de6b;
       display: none;
+      text-align: right;
     }
     .dropdown-menu ul {
         display: flex;
@@ -115,10 +223,7 @@ footer {
     .show {
       display: block !important;
     }
-    nav {
-        margin-top: 5px;
     }
-  }
 
   @media (min-width: 636px) {
     .hamburger {

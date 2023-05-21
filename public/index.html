@@ -6,6 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bank of Viktoria</title>
     <link rel="stylesheet" href="/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Arvo:ital,wght@0,400;1,700&family=Lato:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/f43b64805c.js" crossorigin="anonymous"></script>
     <script src="/main.js" defer></script>
 </head>
@@ -14,7 +17,7 @@
     <header>
         <nav>
             <a href="/">
-              <h1><i class="fa-solid fa-piggy-bank"></i>Bank of Viktoria</h1>
+              <h1><i class="fa-solid fa-piggy-bank"></i>Viktoriabanken</h1>
             </a>
     
           <div class="dropdown-menu">
@@ -28,8 +31,8 @@
         </nav>
     </header>
 <main>
-<h2>Welcome to min bank!</h2>
-<p id="welcome">Logga in eller registrera dig som användare i formuläret nedan.</p>
+    
+<h2>Välkommen till Viktoriabanken!</h2>
 
 <section class="loginSection">
     <form id="loginOrReg-form">
@@ -42,9 +45,8 @@
     <button class="changeBtn">Är du inte medlem än? Klicka här för att registrera dig!</button>
 </section>
 
-    <form id="logout" class="hidden">
-        <button type="submit" class="logoutBtn">Logout</button>
-    </form>
+<p id="welcome"></p>
+  
 
 <section class="userSection hidden">
     <h3>Här är en lista på alla bankkonton:</h3>
@@ -62,7 +64,9 @@
     </form>
     
 </section>
-
+<form id="logout" class="hidden">
+    <button type="submit" class="logoutBtn">Logout</button>
+</form>
 </main>
 
 <footer>

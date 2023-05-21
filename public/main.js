@@ -19,7 +19,7 @@ let onPageLoad = async () => {
   let response = await fetch("/api/loggedin");
   let data = await response.json();
   if (data.user) {
-    welcomeText.innerHTML = "Welcome back, " + data.user;
+    welcomeText.innerHTML = "Välkommen tillbaka " + data.user + "! Här nedan kan du se bankkonton, ta ut och sätta in pengar samt skapa nya konton.";
     loginSection.classList.add("hidden");
     userSection.classList.remove("hidden");
     logoutForm.classList.remove("hidden");
@@ -66,11 +66,11 @@ loginForm.addEventListener("submit", async (e) => {
       },
     });
     let data = await res.json();
-    console.log(data);
+
     if (data.user) {
       loginSection.classList.add("hidden");
       userSection.classList.remove("hidden");
-      welcomeText.innerText = "Välkommen, du är inloggad";
+      welcomeText.innerText = `Välkommen, du är inloggad som ${data.user}. Här nedan kan du se bankkonton, ta ut och sätta in pengar samt skapa nya konton.`;
       getUserAccounts();
     } else {
       welcomeText.innerText = data.error;
@@ -93,18 +93,33 @@ loginForm.addEventListener("submit", async (e) => {
     });
 
     let data = await res.json();
-    console.log(data);
+    //loggar in nyligen registrerad användare
     if (data.user) {
-      loginSection.classList.add("hidden");
-      userSection.classList.remove("hidden");
-      welcomeText.innerText = "Välkommen, tack för att du har registrerat dig!";
-      //Vad ska ske här egentligen??
-      //getUserAccounts();
-    } else {
-      welcomeText.innerText = "Något gick fel vid registreringen";
-    }
+   
+    let loginres = await fetch("/api/login", {
+      method: "POST",
+      body: JSON.stringify({
+        user: usernameInput,
+        pass: passwordInput,
+      }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    let data = await loginres.json();
+
+      if (data.user) {
+        loginSection.classList.add("hidden");
+        userSection.classList.remove("hidden");
+        logoutForm.classList.remove("hidden");
+
+        welcomeText.innerText = `Välkommen, du är inloggad som ${data.user}`;
+        getUserAccounts();
+      } else {
+        welcomeText.innerText = data.error;
+      }
   }
-});
+}});
 
 //Logga ut användare
 logoutForm.addEventListener("submit", async (e) => {
@@ -128,8 +143,16 @@ let getUserAccounts = async () => {
     accountDiv.innerText = "Det finns inga konton ännu";
   } else {
     data.forEach((account) => {
+      let div = document.createElement("div");
+      div.className = "account-div";
+      accountUl.append(div);
+
       let li = document.createElement("li");
-      li.innerHTML = `Kontonamn:<a href="/account/${account._id}">${account.name}</a> - Saldo: ${account.balance} - Kontonummer: ${account._id}`;
+      li.innerHTML = `<a href="/api/account/${account._id}">${account.name}</a><br>Kontonummer: ${account._id}<br>Saldo: ${account.balance} SEK`;
+
+      let depositDiv = document.createElement("div");
+      depositDiv.className = "depositDiv";
+
       let depositBtn = document.createElement("button");
       depositBtn.innerText = "Insättning";
       let depositInput = document.createElement("input");
@@ -141,6 +164,10 @@ let getUserAccounts = async () => {
       saveBtn.innerText = "Sätt in";
       saveBtn.className = "hidden";
       saveBtn.id = `${account._id}`;
+      depositDiv.append(depositBtn, depositInput, saveBtn);
+
+      let withdrawalDiv = document.createElement("div");
+      withdrawalDiv.className = "withdrawalDiv";
 
       let withdrawalBtn = document.createElement("button");
       withdrawalBtn.innerText = "Uttag";
@@ -153,20 +180,12 @@ let getUserAccounts = async () => {
       withdrawBtn.innerText = "Ta ut";
       withdrawBtn.className = "hidden";
       withdrawBtn.id = `${account._id}`;
+      withdrawalDiv.append(withdrawalBtn, withdrawalInput, withdrawBtn);
       let deleteBtn = document.createElement("button");
       deleteBtn.innerText = "Radera konto";
       deleteBtn.id = `delete${account._id}`;
 
-      accountUl.append(
-        li,
-        depositBtn,
-        depositInput,
-        saveBtn,
-        withdrawalBtn,
-        withdrawalInput,
-        withdrawBtn,
-        deleteBtn
-      );
+      div.append(li, depositDiv, withdrawalDiv, deleteBtn);
       saveBtn.addEventListener("click", async (e) => {
         let accountId = e.target.id;
         let deposit = Number(depositInput.value);
@@ -188,7 +207,7 @@ let getUserAccounts = async () => {
       withdrawBtn.addEventListener("click", async (e) => {
         let accountId = e.target.id;
         let withdrawal = Number(withdrawalInput.value);
-        console.log("du vill ta ut: ", typeof withdrawal);
+
         if (account.balance - withdrawal >= 0) {
           await fetch(`/api/accounts/${accountId}`, {
             method: "PUT",
@@ -253,7 +272,7 @@ createAccForm.addEventListener("submit", async (e) => {
       "Content-Type": "application/json",
     },
   });
- 
+
   location.reload();
 });
 
