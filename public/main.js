@@ -19,7 +19,10 @@ let onPageLoad = async () => {
   let response = await fetch("/api/loggedin");
   let data = await response.json();
   if (data.user) {
-    welcomeText.innerHTML = "Välkommen tillbaka " + data.user + "! Här nedan kan du se bankkonton, ta ut och sätta in pengar samt skapa nya konton.";
+    welcomeText.innerHTML =
+      "Välkommen tillbaka " +
+      data.user +
+      "! Här nedan kan du se bankkonton, ta ut och sätta in pengar samt skapa nya konton.";
     loginSection.classList.add("hidden");
     userSection.classList.remove("hidden");
     logoutForm.classList.remove("hidden");
@@ -95,18 +98,17 @@ loginForm.addEventListener("submit", async (e) => {
     let data = await res.json();
     //loggar in nyligen registrerad användare
     if (data.user) {
-   
-    let loginres = await fetch("/api/login", {
-      method: "POST",
-      body: JSON.stringify({
-        user: usernameInput,
-        pass: passwordInput,
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    let data = await loginres.json();
+      let loginres = await fetch("/api/login", {
+        method: "POST",
+        body: JSON.stringify({
+          user: usernameInput,
+          pass: passwordInput,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      let data = await loginres.json();
 
       if (data.user) {
         loginSection.classList.add("hidden");
@@ -118,8 +120,9 @@ loginForm.addEventListener("submit", async (e) => {
       } else {
         welcomeText.innerText = data.error;
       }
+    }
   }
-}});
+});
 
 //Logga ut användare
 logoutForm.addEventListener("submit", async (e) => {
@@ -189,31 +192,12 @@ let getUserAccounts = async () => {
       saveBtn.addEventListener("click", async (e) => {
         let accountId = e.target.id;
         let deposit = Number(depositInput.value);
-
-        await fetch(`/api/accounts/${accountId}`, {
-          method: "PUT",
-          body: JSON.stringify({
-            type: "deposit",
-            balance: deposit,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        location.reload();
-      });
-
-      withdrawBtn.addEventListener("click", async (e) => {
-        let accountId = e.target.id;
-        let withdrawal = Number(withdrawalInput.value);
-
-        if (account.balance - withdrawal >= 0) {
+        if (deposit > 0) {
           await fetch(`/api/accounts/${accountId}`, {
             method: "PUT",
             body: JSON.stringify({
-              type: "withdraw",
-              balance: withdrawal,
+              type: "deposit",
+              balance: deposit,
             }),
             headers: {
               "Content-Type": "application/json",
@@ -222,7 +206,36 @@ let getUserAccounts = async () => {
 
           location.reload();
         } else {
-          alert("Du kan inte ta ut pengar som du inte har.");
+          alert(
+            "Du behöver ange ett positivt värde om minst 1 SEK för att sätta in pengar."
+          );
+        }
+      });
+
+      withdrawBtn.addEventListener("click", async (e) => {
+        let accountId = e.target.id;
+        let withdrawal = Number(withdrawalInput.value);
+        if (withdrawal > 0) {
+          if (account.balance - withdrawal >= 0) {
+            await fetch(`/api/accounts/${accountId}`, {
+              method: "PUT",
+              body: JSON.stringify({
+                type: "withdraw",
+                balance: withdrawal,
+              }),
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+
+            location.reload();
+          } else {
+            alert("Du kan inte ta ut pengar som du inte har.");
+          }
+        } else {
+          alert(
+            "Du behöver ange ett positivt värde om minst 1 SEK för att ta ut pengar."
+          );
         }
       });
 
