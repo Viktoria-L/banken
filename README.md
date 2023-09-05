@@ -35,4 +35,4 @@ Kontofunktioner:
 
 Fokus var ej på layouten.
 
-![image](https://github.com/Viktoria-L/banken/assets/113613194/1ab658d2-285b-4aaf-aaa7-4e4cea6efab3)
+![image](https://github.com/Viktoria-L/banken/assets/113613194/3be7c4ee-f7fb-499d-a44c-d4eb89ed20fe)
