@@ -1,4 +1,4 @@
-# Banken
+# Banken 🏦 💰
 ## Inlämningsuppgift 2 Javascript som backendspråk
 Din uppgift är att programmera en enkel “bank”, där en användare kan skapa konton, och
 sätta in, ta ut.
@@ -33,4 +33,6 @@ Kontofunktioner:
 • Man skall kunna logga in.
 • Man ska inte kunna se kontoinformation om man inte är inloggad.
 
-![Alt text](image.png)
+Fokus var ej på layouten.
+
+![image](https://github.com/Viktoria-L/banken/assets/113613194/1ab658d2-285b-4aaf-aaa7-4e4cea6efab3)
